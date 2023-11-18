@@ -1,0 +1,47 @@
+{
+  "name": "ShoppingHub",
+  "displayName": "ShoppingHub",
+  "expo": {
+    "name": "ShoppingHub",
+    "slug": "ShoppingHub",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/android_icons/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/android_icons/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "googleServicesFile": "./google-services.json",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/android_icons/adaptive-icon.png",
+        "backgroundColor": "#fefffe"
+      },
+      "package": "com.shoppinghub"
+    },
+    "owner": "vikash129",
+    "plugins": [
+      "@react-native-google-signin/google-signin",
+      "@react-native-firebase/app",
+      [
+        "@stripe/stripe-react-native",
+        {
+          "enableGooglePay": true
+        }
+      ]
+  ],
+    "extra": {
+      "eas": {
+        "projectId": "6aa7da74-98d9-481c-8687-80100d4fca1f"
+      }
+    }
+  }
+}
