@@ -2,8 +2,9 @@ import React,{useState} from 'react'
 import { View  , StyleSheet  , Text  } from 'react-native'
 import { useSelector } from 'react-redux'
 import DisplayProducts from '../Components/DisplayProducts'
-import { Colors } from '../../constants/theme'
+import { Colors, fontSize } from '../../constants/theme'
 import SearchBar from '../Components/SearchBar'
+import { scale, verticalScale } from 'react-native-size-matters'
 
 const Favourite = () => {
 
@@ -29,16 +30,16 @@ const Favourite = () => {
 
     {wishListproducts?.length == 0 ?
 
-    <View style={{alignItems:'center' , justifyContent:'center' , marginTop:20}}>
-      <Text style={{fontSize:24 , fontWeight : '600' , color:'#000'}}> No Items In Your Wish List</Text>
+    <View style={{alignItems:'center' , justifyContent:'center' , marginTop:verticalScale(20)}}>
+      <Text style={{fontSize:fontSize.large , fontWeight : '600' , color:'#000'}}> No Items In Your Wish List</Text>
     </View>
     :
     <>
    <SearchBar onSearch={handleSearch} title={'Search Favourites...'}/>
 
    {searchList?.length == 0 ? 
-<View style={{marginTop:20 }}>
-  <Text style={{fontWeight:'500' , fontSize:24}}>No Search Result for this..</Text>
+<View style={{marginTop:verticalScale(30) }}>
+  <Text style={{fontWeight:'500' , fontSize:fontSize.large}}>No Search Result for this..</Text>
 </View>
 :
   <DisplayProducts products = {searchList}  />
@@ -54,7 +55,8 @@ const styles = StyleSheet.create({
   container : {
     flex:1,
     alignItems:'center',
-    backgroundColor:Colors.bg
+    backgroundColor:Colors.bg,
+    paddingHorizontal : scale(10)
   },
    
 })

@@ -1,17 +1,17 @@
-import React,{useEffect , useState} from 'react'
 import AppNavigator from './src/AppNavigator'
 import { Provider } from 'react-redux'
 import  ReduxStore  from './src/Redux/ReduxStore'
+import { SafeAreaView } from 'react-native';
+import React,{useEffect , useState} from 'react'
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { SafeAreaView } from 'react-native';
+
+import CardPayment from './src/Screens/CheckoutScreens/CardPayment';
 
 
 
 const App = () => {
 
-
-  
   const [fontLoading,setFontLoading]=useState(true);
 
  

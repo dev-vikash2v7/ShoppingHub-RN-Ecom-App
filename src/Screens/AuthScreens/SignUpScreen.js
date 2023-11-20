@@ -13,7 +13,7 @@ import { setUser } from '../../Redux/Slices/AuthSlice';
 import Ionicons  from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import LoadingButton from '../../Components/LoadingButton';
-import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
+import { ScaledSheet, moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import auth from '@react-native-firebase/auth';
 import GoogleButton from '../../Components/GoogleButton';
 
@@ -70,7 +70,10 @@ const Signup = () => {
                 phone : user.phoneNumber
             })) 
 
-            navigation.replace('Home')
+            setTimeout(() => {
+                navigation.replace('Home')
+            }, 2000);
+            
           })
           .catch ((error)=> {
           console.error('Error updating user profile:', error.message);
@@ -87,6 +90,9 @@ const Signup = () => {
 
         .then(async () => {
            await handleUpdateProfile();
+
+          
+
             })
         .catch(error => {
             if (error.code === 'auth/email-already-in-use') {
@@ -357,7 +363,7 @@ export default Signup;
 
 
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   container:{
       flex: 1,
        backgroundColor: Colors.white 
@@ -370,7 +376,10 @@ label_text:{
     ,
     input: {
         width : '100%',
-        marginLeft : scale(5),
+        marginLeft : '8@s',
+        color:'#000',
+        fontSize:fontSize.regular,
+        fontWeight:'400'
       },
 
 

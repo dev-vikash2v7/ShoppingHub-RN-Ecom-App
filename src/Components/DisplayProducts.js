@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import FontAwesome from 'react-native-vector-icons/FontAwesome' 
 import { fontSize } from '../../constants/theme';
-import { ScaledSheet, scale } from 'react-native-size-matters';
+import { ScaledSheet, scale, verticalScale } from 'react-native-size-matters';
 
 
 
@@ -16,11 +16,13 @@ const dispatch = useDispatch();
 
 
   return ( 
+    <View style ={{marginBottom:verticalScale(70)}}>
     <FlatList
+
         data={products}
         renderItem={({item, index}) => {
           return (  
-            <View                       >
+            <View >
 
             <Pressable
               key = {index}
@@ -50,7 +52,7 @@ const dispatch = useDispatch();
 
                  <View style={styles.priceBox}>  
 
-               { isCart && <Text style = {[  { color : '#000' , fontWeight : '500' , marginLeft:scale(-5)}] }>   Total :  </Text>}
+               { isCart && <Text style = {[  { color : '#000' , fontWeight : '500' , marginLeft:scale(-5) , fontSize:fontSize.regular} ] }>   Total :  </Text>}
 
                 <View style={styles.priceView}> 
                  <FontAwesome name = 'rupee' size = {14} color ='green' />
@@ -84,7 +86,9 @@ const dispatch = useDispatch();
         }}
       />
 
+  </View>
   )
+
 }
 
 export default DisplayProducts;
@@ -92,7 +96,8 @@ export default DisplayProducts;
 const styles = ScaledSheet.create({
       productItem: {
       // height: '140@vs',
-      height: Dimensions.get('window').height / 6 ,
+      // height: Dimensions.get('window').height / 5 ,
+      height :'auto',
       backgroundColor: '#fff',
       alignItems: 'center',
       flexDirection: 'row',

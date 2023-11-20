@@ -11,8 +11,9 @@ import { deleteAddress, updateAddress } from '../Redux/Slices/AuthSlice';
 import { Colors, fontSize } from '../../constants/theme';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons' 
-import Button from '../Components/Button';
 import { ScaledSheet, scale, verticalScale } from 'react-native-size-matters';
+import CustomButton from '../Components/CustomButton';
+
 
   const Addresses = () => {
 
@@ -25,16 +26,14 @@ import { ScaledSheet, scale, verticalScale } from 'react-native-size-matters';
 
     const [selectedAddress , setSelectedAddress] = useState( null )
 
-
-    
     useEffect(() => {
-      addressList.forEach(item =>     item.currentAddress == true && setSelectedAddress(item)   )
+      addressList?.forEach(item =>     item.currentAddress == true && setSelectedAddress(item)   )
     }, [isFocused]);
 
     const defaultAddress = async item => {
 
       addressList  =  addressList.map( address => {
-          const newAddress = { ...address, currentAddress: item.id == address.id ?  true :false }
+          const newAddress = { ...address, currentAddress: item.id == address.id ?  true : false }
           dispatch(updateAddress(newAddress))
           return newAddress;
         })
@@ -46,7 +45,7 @@ import { ScaledSheet, scale, verticalScale } from 'react-native-size-matters';
       
       <View style={styles.container}>
      
-      { addressList.length ?
+      { addressList?.length ?
       <>
         <FlatList
           data={addressList}
@@ -94,15 +93,6 @@ import { ScaledSheet, scale, verticalScale } from 'react-native-size-matters';
             );
           }}
         />
-      <Button
-    title = 'Select Address'
-    onPress={()=>defaultAddress(selectedAddress)}
-bg='blue'
-      />
-      </>
-      : 
-      <Text style = {{fontSize:fontSize.large , fontWeight:'600' , alignSelf:'center' , marginTop : verticalScale(20)}}>No Address Found</Text>
-      }
 
         <TouchableOpacity
           style={styles.addButton}
@@ -111,6 +101,30 @@ bg='blue'
           }}>
           <Text style={{fontSize: fontSize.extralarge, color: '#fff'}}>+</Text>
         </TouchableOpacity>
+
+
+      <CustomButton
+    title = 'Select Address'
+    onClick={()=>defaultAddress(selectedAddress)}
+    width={'90%'}
+bg='orange'
+      />
+
+      </>
+      : 
+      <View>
+      <Text style = {{fontSize:fontSize.large , fontWeight:'600' , alignSelf:'center' , marginTop : verticalScale(20)}}>No Address Found</Text>
+      
+      <TouchableOpacity
+          style={styles.addButton}
+          onPress={() => {
+            navigation.navigate('AddAddress', {type: 'new'});
+          }}>
+          <Text style={{fontSize: fontSize.extralarge, color: '#fff'}}>+</Text>
+        </TouchableOpacity>
+      </View>
+      }
+
       </View>
     );
   };
@@ -121,6 +135,7 @@ bg='blue'
     container: {
       flex: 1,
       backgroundColor: Colors.bg,
+      paddingBottom:30
     },
     selectedAddressStyle:{
       borderWidth: 2,
@@ -143,15 +158,17 @@ bg='blue'
       height: '50@s',
       backgroundColor: '#EC8A00',
       borderRadius: '25@ms',
-      position: 'absolute',
-      bottom: '50@vs',
-      right: '20@s',
+      // position: 'absolute',
+      // bottom: '50@vs',
+      // right: '20@s',
       justifyContent: 'center',
       alignItems: 'center',
+      alignSelf:'flex-end',
+      marginRight:'20@s'
     },
     state: {
       color: '#000', 
-      fontSize: fontSize.large
+      fontSize: fontSize.regular
     },
     radioBtn:{
         position: 'absolute',

@@ -12,5 +12,9 @@ export default ReduxStore = configureStore({
         cartList : CartListReducer,
         auth : AuthReducer,
         order : OrderReducer,
-    }
+    },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+        immutableCheck: false,
+        serializableCheck: false,
+      })
   })

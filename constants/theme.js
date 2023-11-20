@@ -29,18 +29,18 @@ const Colors = {
 
   
   
-// const fontSize = {
-//     small: ( height / width) * 5,
-//     regular: ( height / width) * 7,
-//     large: ( height / width) * 9,
-//     extralarge:( height / width) * 11
-// } 
 const fontSize = {
-    small: scale(12 , 0.3),
-    regular: scale(14),
-    large: scale(18 , 0.3),
-    extralarge: scale(29)
+    small: ( height / width) * 4,
+    regular: ( height / width) * 5,
+    large: ( height / width) * 8,
+    extralarge:( height / width) * 10
 } 
+// const fontSize = {
+//     small: scale(12 , 0.3),
+//     regular: scale(14),
+//     large: scale(18 , 0.3),
+//     extralarge: scale(29)
+// } 
   
   const SHADOWS = {
     small: {

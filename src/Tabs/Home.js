@@ -5,7 +5,7 @@ import { addProducts } from '../Redux/Slices/ProductSlice';
 import DisplayProducts from '../Components/DisplayProducts';
 import SearchBar from '../Components/SearchBar';
 import { scale, verticalScale } from 'react-native-size-matters';
-import { fontSize } from '../../constants/theme';
+import { Colors, fontSize } from '../../constants/theme';
 
 const Home = () => {
   const [products, setProducts] = useState();
@@ -71,7 +71,7 @@ const Home = () => {
 const styles = StyleSheet.create({
   container : {
     flex:1,
-    alignItems:'center'
+    alignItems:'center',
   },
     
 })

@@ -65,7 +65,7 @@ export default function User({navigation}){
         </Pressable>
         
         <View style={styles.itemInnerContainer}>
-          <Label text={label} />
+          <Label text={label} style={{fontSize:fontSize.regular}}  />
           {/* {isNew&&<View style={{paddingHorizontal:scale(10), backgroundColor:appColors.red, padding:scale(5), borderRadius:scale(4)}}>
              <Label text="New" style={{fontSize:scale(10), color:Colors.white}} /> 
           </View>} */}
@@ -92,16 +92,9 @@ user ?
             <AvatarImage  size={scale(70)}  source={user.photo } />
 
             <View style={{marginLeft:scale(20)}}> 
-                <Label text={user?.name} style={{fontSize:scale(28)}} />
-                <Label text={user?.email} style={{fontSize:scale(12)}} />
-
-                <View>
-                <Label text={'Email Verified : '} style={{fontSize:scale(12)}} />
-               
-               <Text> {
-                  user.emailVerified ? '*' : 'x'
-                }</Text>
-                </View>
+                <Label text={user?.name} style={{fontSize:fontSize.large}} />
+                <Label text={user?.email} style={{fontSize:fontSize.regular}} />
+                <Label text={`Email Verified : ${user.emailVerified ? 'Yes' : 'No'} `} style={{fontSize:fontSize.small}} />
             </View>
         </View>
 

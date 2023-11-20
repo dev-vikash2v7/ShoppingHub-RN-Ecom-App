@@ -4,6 +4,7 @@ import { Colors, fontSize } from '../../constants/theme';
 import { ScaledSheet } from 'react-native-size-matters';
 
 const Button = (props) => {
+    
     const filledBgColor = props.color || Colors.primary;
     const outlinedColor = Colors.white;
     const bgColor = props.filled ? filledBgColor : outlinedColor;

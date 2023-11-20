@@ -42,7 +42,9 @@ function GoogleButton({type}) {
     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
     await auth().signInWithCredential(googleCredential)
 
-    navigation.replace('Home')
+        setTimeout(() => {
+          navigation.replace('Home')
+      }, 2000);
 
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {

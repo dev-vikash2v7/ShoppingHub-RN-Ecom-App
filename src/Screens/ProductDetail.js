@@ -119,6 +119,7 @@ const handleLike = ()=>{
           color={'#fff'}
           onClick={handleAddToCart}
           width={'45%'}
+          fontSize = {scale(12)}
           />
           
       <CustomButton
@@ -130,6 +131,8 @@ const handleLike = ()=>{
             user &&  navigation.navigate('Cart')
             }}
           width={'45%'}
+          fontSize = {scale(12)}
+
           />
           </View>
 

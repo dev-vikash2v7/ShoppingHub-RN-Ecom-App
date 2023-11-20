@@ -1,5 +1,13 @@
 import { createSlice  } from '@reduxjs/toolkit'
 
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+
+
+
+const user = auth().currentUser;
+
+
 const CartListSlice = createSlice({
     name: 'cartList',
     initialState: {
@@ -20,6 +28,12 @@ const CartListSlice = createSlice({
        if(!isExist){
           state.data.push( action.payload.item)
         }
+
+        // db.collection('users').doc(user.uid).set({
+        //   cartList:  state.data,
+        // })
+        // .then(()=>console.log('updated'))
+        // .catch((error) => { console.error('Error updating profile and Firestore:', error); });
       },
 
 

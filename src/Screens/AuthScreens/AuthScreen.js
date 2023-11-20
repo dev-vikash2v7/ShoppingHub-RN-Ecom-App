@@ -9,6 +9,8 @@ import {
   import React, { useEffect, useState } from 'react';
   import Entypo from 'react-native-vector-icons/Entypo'
   import { useNavigation } from '@react-navigation/native';
+import { fontSize, height, width } from '../../../constants/theme';
+import { ScaledSheet } from 'react-native-size-matters';
   
   const AuthScreen = () => {
   
@@ -42,45 +44,44 @@ import {
     );
   };
   
-  export default AuthScreen
-  
-  const styles = StyleSheet.create({
-    modalView: {
-      width: Dimensions.get('window').width ,
-      height: Dimensions.get('window').height ,
-      backgroundColor: 'rgba(0,0,0,0.7)',
-      justifyContent : 'center' ,
-      alignItems : 'center',
-    },
-     modalMain: {
-      width:'90%',
-      height: 200,
-      backgroundColor: '#fff',
-      borderRadius : 10,
-      paddingHorizontal : 5,
-      justifyContent:'center',
-      alignItems:'center'
-    },
-    btn: {
-      width: '90%',
-      height: 50,
-      backgroundColor : 'orange',
-      justifyContent: 'center',
-      alignItems: 'center',
-      borderRadius: 20,
-      marginVertical:10
-    },
-    btnText: { 
-      color: "#fff",
-       fontSize: 18, 
-       fontWeight: '500' 
-       },
-  
-       crossBtn:{
-         position : 'absolute' ,
-         top : 280 ,
-         right : 20
-       },
-  
-  });
-  
+  export default AuthScreen;
+
+const styles = ScaledSheet.create({
+  modalView: {
+    width: width ,
+    height:height ,
+    backgroundColor: 'rgba(0,0,0,0.7)',
+    justifyContent : 'center' ,
+    alignItems : 'center',
+  },
+   modalMain: {
+    width:'86%',
+    height: height / 4,
+    backgroundColor: '#fff',
+    borderRadius : '10@ms',
+    paddingHorizontal : '5@s',
+    justifyContent:'center',
+    alignItems:'center'
+  },
+  btn: {
+    width: '75%',
+    height: '40@vs',
+    backgroundColor : 'orange',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: '12@ms',
+    marginVertical:'10@vs'
+  },
+  btnText: { 
+    color: "#fff",
+     fontSize: fontSize.regular, 
+     fontWeight: '500' 
+     },
+
+     crossBtn:{
+       position : 'absolute' ,
+       top : height - 380 ,
+       left : width - 40
+     },
+
+});

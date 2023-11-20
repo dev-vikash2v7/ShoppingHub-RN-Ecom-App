@@ -8,7 +8,7 @@ import { fontSize } from '../../constants/theme';
 import { ScaledSheet } from 'react-native-size-matters';
   
 
-  const CustomButton = ({bg, title, onClick, color , width }) => {
+  const CustomButton = ({bg, title, onClick, color , width , fontSize }) => {
     return (
       <Button
         title= {title}
@@ -17,7 +17,7 @@ import { ScaledSheet } from 'react-native-size-matters';
           onClick();
         }}
        >
-       <Text style = {{ fontSize: fontSize.large,fontWeight: '500',color : color}}>{title}</Text>
+       <Text style = {{ fontSize,fontWeight: '500',color : color }}>{title}</Text>
 
        </Button>
     );

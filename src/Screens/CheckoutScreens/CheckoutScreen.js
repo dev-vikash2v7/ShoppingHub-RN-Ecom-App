@@ -11,11 +11,11 @@ import QRCode from 'react-native-qrcode-svg';
 import   Card from  '../../../assets/payment_icons/credit-card-color-icon.svg'
 import Upi from  '../../../assets/payment_icons/upi-icon.svg'
 import Cod from  '../../../assets/payment_icons/cod.svg'
-// import Wallet from  '../../../assets/payment_icons/wallet-icon.svg'
-// import Emi from  '../../../assets/payment_icons/emi.svg'
-import Qr from  '../../../assets/payment_icons/qr-icon.svg'
+import Qr from  '../../../assets/payment_icons/qr-icon.svg' 
 import   Bank from '../../../assets/payment_icons/bank-transfer-icon.svg'
+
 import { ScaledSheet, scale, verticalScale } from 'react-native-size-matters';
+
 
 const CheckoutScreen = ({route}) => {
 
@@ -116,12 +116,12 @@ const CheckoutScreen = ({route}) => {
       desc : 'Pay with scanner',
       onClick : ()=> setQRVisible(true)
     },
-    { 
-      method: 'NET Banking', 
-      image : 'Bank',
-      desc : 'All Indians Bank',
-      onClick : ()=> {}
-    },
+    // { 
+    //   method: 'NET Banking', 
+    //   image : 'Bank',
+    //   desc : 'All Indians Bank',
+    //   onClick : ()=> {}
+    // },
     // { 
     //   method: 'Wallet', 
     //   image : paymentIcons.wallet,
@@ -175,8 +175,6 @@ const CheckoutScreen = ({route}) => {
             <Bank width={width} height={height}/>
           }
       </View>
-
-
           <View style={styles.textBox}>
            <Text style={styles.method}>{option.method}</Text>
            <Text style={styles.desc}>{option.desc}</Text>
@@ -216,14 +214,14 @@ const CheckoutScreen = ({route}) => {
         </View>
 
 
-        <View style={styles.totalView}>
+        {/* <View style={styles.totalView}>
         <Text style={[styles.title , { marginTop:0}] }>  Total Amount : </Text>
-        <View style = {{marginRight:scale(2) ,flexDirection:'row' , justifyContent:'space-evenly' , alignItems:'center'}}>
-        <FontAwesome name = 'rupee' size = {scale(14)} color ='black'/> 
-        <Text style = {styles.total}>{route.params.total} </Text>
-        </View>
+          <View style = {{marginRight:scale(2) ,flexDirection:'row' , justifyContent:'space-evenly' , alignItems:'center'}}>
+          <FontAwesome name = 'rupee' size = {scale(14)} color ='black'/> 
+          <Text style = {styles.total}>{route.params.total} </Text>
+          </View>
 
-  </View>
+        </View> */}
 
 
 
@@ -257,7 +255,7 @@ const styles = ScaledSheet.create({
   },
   
   title: {
-    fontSize: fontSize.large,
+    fontSize: fontSize.regular,
     marginLeft: '6@s' ,
     color: '#000',
     fontWeight:'500'

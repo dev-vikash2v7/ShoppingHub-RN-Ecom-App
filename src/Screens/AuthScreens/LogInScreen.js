@@ -79,7 +79,11 @@ export default LogInScreen = () => {
    
     await  auth().signInWithEmailAndPassword( email, password)
       .then(() => {
-        navigation.replace('Home')
+
+        setTimeout(() => {
+            navigation.replace('Home')
+        
+        }, 2000);
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -117,7 +121,7 @@ export default LogInScreen = () => {
 
   return (
     <ScrollView style={styles.container}>
-            <View style={{ flex: 1, marginHorizontal: 12 }}>
+            <View style={{ marginHorizontal: 12 ,  }}>
 
                 <View style={{ marginVertical: 12 }}>
 
@@ -141,10 +145,11 @@ export default LogInScreen = () => {
                 
 
                <View style={{ marginBottom: verticalScale(12) }}>
+
                     <Text style={styles.text_label}>Email address</Text>
 
                     <View style={styles.input_box}>
-          <FontAwesome name="envelope-o" color={Colors.black} size={scale(16)} />
+                            <FontAwesome name="envelope-o" color={Colors.black} size={scale(16)} />
 
                         <TextInput
                             placeholder='Enter your email address'
@@ -172,6 +177,7 @@ export default LogInScreen = () => {
                             style={styles.input}
                             onChangeText={text => setPassword(text)}
                             value={password}
+                        
                         />
 
                        <TouchableOpacity
@@ -239,7 +245,9 @@ export default LogInScreen = () => {
                             marginHorizontal: scale(10)
                         }}
                     />
-                    <Text style={{ fontSize: fontSize.regular,color:'#000' }}>Or Login with</Text>
+                    <Text style={{ 
+                        fontSize: fontSize.regular,
+                        color:'#000' }}>Or Login with</Text>
                     <View
                         style={{
                             flex: 1,
@@ -260,19 +268,19 @@ export default LogInScreen = () => {
 
 
 
-                <View style = {{justifyContent:'center' , alignItems:'center'}}>
+                <View style = {{justifyContent:'center' , alignItems:'center' , marginBottom:30}}>
                     <View style={{
                     flexDirection: "row",
                     justifyContent: "center",
                     marginVertical: verticalScale(22)
                 }}>
-                    <Text style={{ fontSize: fontSize.large, color: Colors.black }}>Don't have an account ? </Text>
+                    <Text style={{ fontSize: fontSize.regular, color: Colors.black }}>Don't have an account ? </Text>
 
                     <Pressable
                         onPress={() => navigation.navigate("SignUp")}
                     >
                         <Text style={{
-                            fontSize: fontSize.large,
+                            fontSize: fontSize.regular,
                             color: Colors.secondary,
                             fontWeight: "bold",
                             marginLeft: scale(6)
@@ -281,7 +289,7 @@ export default LogInScreen = () => {
                     </View>
 
                 <TouchableOpacity  onPress={()=>navigation.navigate('Home')}>
-                        <Text style={{color:Colors.secondary, fontWeight : 'bold' , textDecorationLine:'underline' , fontSize:fontSize.regular}} >{'Continue as a Guest->'}</Text>
+                        <Text style={{color:Colors.secondary, fontWeight : 'bold' , textDecorationLine:'underline' , fontSize:fontSize.small}} >{'Continue as a Guest->'}</Text>
                         </TouchableOpacity>
                 </View>
                
@@ -304,23 +312,25 @@ export default LogInScreen = () => {
 const styles = ScaledSheet.create({
   container:{
     flex: 1,
-    padding : '20@ms',
-    backgroundColor : Colors.background
+    padding : '10@ms',
+    backgroundColor : Colors.bg,
 },
-
-
   input: {
     width : '100%',
-    marginLeft : '5@s',
-    color:'#000'
+    marginLeft : '8@s',
+    color:'#000',
+    fontSize:fontSize.regular,
+    fontWeight:'400'
   },
   errorMessage: {
     marginTop : '5@vs' ,
     color: 'red',
     marginBottom: '7@vs',
-    fontWeight : 'bold'
-  },
-  loginText :{
+    fontWeight : 'bold',
+    fontSize:fontSize.small,
+
+  }, 
+   loginText :{
     fontSize : fontSize.regular,
     alignSelf : 'center',
     marginTop:'15@vs',

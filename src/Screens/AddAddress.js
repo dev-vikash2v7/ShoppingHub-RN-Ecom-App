@@ -24,10 +24,10 @@ const options = [
     const navigation = useNavigation();
 
     const [type, setType] = useState(
-
       route.params.type == 'edit'
         ? route.params.data.type : 'home',
     );
+    
     const [state, setState] = useState(
       route.params.type == 'edit' ? route.params.data.state : '',
     );

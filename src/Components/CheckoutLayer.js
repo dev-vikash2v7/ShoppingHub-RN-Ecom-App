@@ -3,7 +3,8 @@ import React from 'react'
 import FontAwesome from 'react-native-vector-icons/FontAwesome' 
 import { useNavigation } from '@react-navigation/native'
 import { ScaledSheet, scale } from 'react-native-size-matters'
-import { fontSize } from '../../constants/theme'
+import { Colors, fontSize } from '../../constants/theme'
+import CustomButton from './CustomButton'
 
 const CheckoutLayer = ({total , no_items}) => {
   const nav = useNavigation()
@@ -13,27 +14,30 @@ const CheckoutLayer = ({total , no_items}) => {
 <View style={styles.tab}> 
  
 <View style={styles.priceBox}>  
-   <Text style = {[  { color : '#000' , fontWeight : '500'}] }>   Total Amount :  </Text>
+   <Text style = { styles.label}>   Total Amount :  </Text>
   <View style={styles.priceView}> 
     <FontAwesome name = 'rupee' size = {scale(14)} />
-  <Text style={styles.price}>{total }    </Text>
+  <Text style={styles.value}>{total }    </Text>
     </View>
 </View>
 
 <View style={styles.priceBox}>  
-   <Text style = {[  { color : '#000' , fontWeight : '500'}] }>   Total Items :  </Text>
-  <Text style={styles.price}>{no_items}    </Text>
+   <Text style = {styles.label }>   Total Items :  </Text>
+  <Text style={styles.value}>{no_items}    </Text>
 </View>
 
 
     </View>   
 
-   <Button 
-   style={{width:scale(50) , borderRadius:20}}
+   <CustomButton 
+   width={scale(100)}
+    borderRadius = {20} 
    title = {'Pay Now'}
-   onPress={()=>nav.navigate('Checkout' , {total })}
+   onClick={()=>nav.navigate('Checkout' , {total })}
+   bg={Colors.primary}
+   fontSize={fontSize.regular}
+   color  = {'white'}
    />
-  
     </View>
   )
 }
@@ -47,22 +51,23 @@ const styles = ScaledSheet.create({
   container:{
     alignItems: 'center',
     paddingHorizontal : '20@s',
-    height  : '100@vs' ,
     width:'100%',
-    // position:'absolute',
-    // bottom:0,
-    borderTopWidth:0.5,
-    borderTopColor:'grey',
     justifyContent:'space-between',
     flexDirection:'row',
-    backgroundColor:'#fff'
-
+    backgroundColor:'#fdsfds'
+    
 },
-total:{
+value:{
   fontWeight:'600',
-  fontSize:fontSize.large,
-  marginLeft:'1@s'
+  fontSize:fontSize.regular,
+  marginLeft:'2@s'
 },
+
+label:{
+   color : '#000' , 
+   fontWeight : '500',
+   fontSize : fontSize.regular
+   },
 
 btn:{
   backgroundColor:'#036f03',

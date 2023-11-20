@@ -1,10 +1,11 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { emptyCart } from '../../Redux/Slices/CartListSlice';
+import { orderItem } from '../../Redux/Slices/OrderSlice';
+
 import { useStripe , CardField, StripeProvider    } from '@stripe/stripe-react-native';
 import { useEffect, useState } from 'react';
 import {  Alert , View , Text , BackHandler} from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import { orderItem } from '../../Redux/Slices/OrderSlice';
-import { emptyCart } from '../../Redux/Slices/CartListSlice';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native'; 
 import LoadingButton from '../../Components/LoadingButton';
 import { ScaledSheet } from 'react-native-size-matters';
 import { fontSize } from '../../../constants/theme';
@@ -18,7 +19,7 @@ function  CardPayment  ({ route}) {
     const navigation = useNavigation()
     const {amount} = route.params
 
-    const [cardDetails , setCardDetails] = useState(null)
+    // const [cardDetails , setCardDetails] = useState(null)
 
     const { confirmPayment  } = useStripe();
 
@@ -44,6 +45,7 @@ function  CardPayment  ({ route}) {
     
       return true; // Prevent default back button behavior
     };
+    
     const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
 
     return () =>
@@ -59,13 +61,27 @@ function  CardPayment  ({ route}) {
         }
 }, [navigation] );
 
+
+
+
     useEffect(()=>{
-    user.address.forEach(address=> {
-      if(address.currentAddress == true ) {
-        setSelectedAddress(address)
-      }
-    }) 
+      // user.address.forEach(address=> {
+      //   if(address.currentAddress == true ) {
+      //     setSelectedAddress(address)
+      //   }
+      // })
+
+      setSelectedAddress(user.address[0])
+      console.log(user.address[0])
   },[])
+
+
+
+
+
+
+
+
 
 
   const placeOrder = (paymentIntent) => {
@@ -87,6 +103,11 @@ function  CardPayment  ({ route}) {
     dispatch(emptyCart([]));
     navigation.navigate('OrderSuccess' , {orderDetails});
   };
+
+
+
+
+
 
     const fetchPaymentIntentClientSecret = async  ( ) => {
     
@@ -116,17 +137,27 @@ function  CardPayment  ({ route}) {
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const handlePayment = async ()=>{
-
       
-      // console.log(cardDetails)
-      
-      // if(!cardDetails?.complete ){
-      //   Alert('Please Enter Complete Details of Card')
-      //   return
-      // }
+            setLoading(true)
+            setShowBtn(false)
 
-   
             const billingDetails = {
                 name : user.name ,
                 email : user.email,
@@ -141,18 +172,16 @@ function  CardPayment  ({ route}) {
                 },
             }
 
-
             const {clientSecret , error} = await  fetchPaymentIntentClientSecret();
 
             if(error || !clientSecret){
                 console.log('USER ERROR  : ' , error)
                 Alert.alert('Unable to process payment ! Try Again')
-                // setLoading(false)
+                setLoading(false)
+                setShowBtn(true)
                 return 
             }
 
-            setLoading(true)
-            setShowBtn(false)
       
 
             try{
@@ -170,9 +199,9 @@ function  CardPayment  ({ route}) {
                   console.log('PAYMENT ERROR : ' , error.message)
                   Alert.alert(error?.localizedMessage || '' + amount);
                 } else if (paymentIntent) {
-                  // console.log(paymentIntent)
-                  // // Alert.alert(`Payment of INR ${amount}   is successful! `)
-                  // console.log(` order id ${paymentIntent.id} at ${paymentIntent.created}`)
+                  console.log(paymentIntent)
+                  // Alert.alert(`Payment of INR ${amount}   is successful! `)
+                  console.log(` order id ${paymentIntent.id} at ${paymentIntent.created}`)
                 placeOrder(paymentIntent)
                 }
             }
@@ -185,31 +214,27 @@ function  CardPayment  ({ route}) {
     }
 
     return (
+
+
       <View style = {styles.container}> 
 
       <Text style={styles.title}> Enter Card Details</Text>
 
-<View>
         <StripeProvider
         publishableKey="pk_test_51J5EHJSEzMLO0wLKuoQkQvHZDW5XE5xwQiSXP61XSBMfzmHNvLDnf9iU0Ba68wuh6nAldPxtld3ORd1P07BDzDsq00ndvDCXLX"
       >
       <CardField
       postalCodeEnabled={false}
-        placeholders={{
-          number: 'card number',
-        }}
-        cardStyle={styles.card}
+        
         style={styles.cardContainer}
         
         onCardChange={(card) => {
-          setCardDetails(card);
-          if(card.complete) setShowBtn(false)
+          if(card.complete) setShowBtn(true)
           else setShowBtn(false)
         }}
       /> 
 
           </StripeProvider>
-</View>
 
 <LoadingButton 
             title={'Pay Now'}
@@ -218,7 +243,8 @@ function  CardPayment  ({ route}) {
            color = 'white'
            loading={ loading}
            showBtn={ showBtn}
-           marginTop={30}
+           marginTop={10}
+           fontSize = {fontSize.regular}
 />
           </View>
     );
@@ -229,25 +255,27 @@ function  CardPayment  ({ route}) {
 
 const styles = ScaledSheet.create({
   container:{
-flex : 1,
-alignItems : 'center',
-padding:'10@ms'
+// flex : 1,
+// alignItems : 'center',
+padding:'10@ms',
+paddingTop:80
   },
   title:{
-fontSize:fontSize.regular,
+fontSize:fontSize.large,
 fontWeight:'600', 
   },
-   card: {
-        textColor: '#000000',
-        borderColor: 'green' 
-      },
+
       cardContainer :{
-        height: '50@vs',
+        width: '100%',
+        height: '60@vs',
         borderWidth:1,
-        backgroundColor: '#efefef',
         marginTop : '10@vs',
         borderRadius:'10@ms',
         padding:'10@ms',
+        color: 'black', // Customize text color
+        fontSize: fontSize.regular,   // Customize font size
+        placeholderColor: 'gray', // Customize placeholder color
+        borderColor: 'gray',
       },
   
 })
