@@ -92,6 +92,7 @@ function  CardPayment  ({selectedAddress , amount }) {
     
         try{
       const res = await  fetch('https://shopping-hub-backend.vercel.app/create-payment-intent', {
+      // const res = await  fetch('https://dae1-2409-40c4-21-593e-b591-2f98-6ff3-f01f.ngrok-free.app/create-payment-intent', {
         method : 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -99,7 +100,7 @@ function  CardPayment  ({selectedAddress , amount }) {
           },
           body: JSON.stringify({
             amount: amount ,
-            currency: 'usd',
+            currency: 'inr',
             gateway: 'card',
           }),} )
 
@@ -179,8 +180,7 @@ function  CardPayment  ({selectedAddress , amount }) {
                 } 
                 else if (paymentIntent) {
                    console.log(paymentIntent)
-                   // Alert.alert(`Payment of INR ${amount}   is successful! `)
-                   console.log(` order id ${paymentIntent.id} at ${paymentIntent.created}`)
+                   Alert.alert(`Payment of INR ${amount}   is successful! `)
                    placeOrder(paymentIntent)
                 }
             }
