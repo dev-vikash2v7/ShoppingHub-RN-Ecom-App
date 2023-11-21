@@ -1,8 +1,6 @@
 import {
   Text,
-  StyleSheet,
-  Dimensions,
-  TouchableOpacity,
+    TouchableOpacity,
   Modal,
   View,
 } from 'react-native';
@@ -84,7 +82,7 @@ const styles = ScaledSheet.create({
 
      crossBtn:{
        position : 'absolute' ,
-       top : height - 380 ,
+       top : height / 3 ,
        left : width - 40
      },
 

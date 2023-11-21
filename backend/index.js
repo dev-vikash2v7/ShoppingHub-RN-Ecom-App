@@ -8,7 +8,7 @@ const port = 3000;
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-  res.send('Hello Stripe Backend!');
+  res.send('Hello From ShoppingHub Backend!');
 });
 
 
@@ -18,14 +18,14 @@ app.post('/create-payment-intent', async (req, res) => {
   
       const paymentIntent = await stripe.paymentIntents.create({
         amount,
-        currency: 'usd',
+       currency,
+       gateway
       });
-  
-      res.json({ clientSecret: paymentIntent.client_secret });
+      res.status(200).json({ clientSecret: paymentIntent.client_secret });
 
     } catch (error) {
       console.error('Error creating Payment Intent:', error);
-      res.status(500).send({ error: 'Error creating Payment Intent' });
+      res.status(500).json({ error: 'Error creating Payment Intent' });
     }
   });
   

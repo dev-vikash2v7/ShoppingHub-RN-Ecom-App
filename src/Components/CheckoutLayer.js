@@ -1,13 +1,16 @@
-import { View, Text ,StyleSheet , Button} from 'react-native'
+import { View, Text } from 'react-native'
 import React from 'react'
 import FontAwesome from 'react-native-vector-icons/FontAwesome' 
 import { useNavigation } from '@react-navigation/native'
 import { ScaledSheet, scale } from 'react-native-size-matters'
 import { Colors, fontSize } from '../../constants/theme'
 import CustomButton from './CustomButton'
+import { useSelector } from 'react-redux'
 
-const CheckoutLayer = ({total , no_items}) => {
+const CheckoutLayer = ({  no_items}) => {
   const nav = useNavigation()
+  const amount = useSelector(state => state.cartList.total_amount)
+
   return (
     <View style={styles.container} >
 
@@ -17,7 +20,7 @@ const CheckoutLayer = ({total , no_items}) => {
    <Text style = { styles.label}>   Total Amount :  </Text>
   <View style={styles.priceView}> 
     <FontAwesome name = 'rupee' size = {scale(14)} />
-  <Text style={styles.value}>{total }    </Text>
+  <Text style={styles.value}>{amount }    </Text>
     </View>
 </View>
 
@@ -27,13 +30,13 @@ const CheckoutLayer = ({total , no_items}) => {
 </View>
 
 
-    </View>   
+    </View>    
 
    <CustomButton 
    width={scale(100)}
     borderRadius = {20} 
-   title = {'Pay Now'}
-   onClick={()=>nav.navigate('Checkout' , {total })}
+   title = {'Buy Now'}
+   onClick={()=>nav.navigate('Addresses' , {type :'payment' })}
    bg={Colors.primary}
    fontSize={fontSize.regular}
    color  = {'white'}

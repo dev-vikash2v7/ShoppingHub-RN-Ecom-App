@@ -30,10 +30,10 @@ const Colors = {
   
   
 const fontSize = {
-    small: ( height / width) * 4,
-    regular: ( height / width) * 5,
-    large: ( height / width) * 8,
-    extralarge:( height / width) * 10
+    small: ( height ) / 70,
+    regular: ( height ) / 50,
+    large: ( height ) / 40,
+    extralarge:( height ) / 30
 } 
 // const fontSize = {
 //     small: scale(12 , 0.3),

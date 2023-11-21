@@ -1,23 +1,23 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { emptyCart } from '../../Redux/Slices/CartListSlice';
-import { orderItem } from '../../Redux/Slices/OrderSlice';
+import { addOrder } from '../../Redux/Slices/OrderSlice';
 
 import { useStripe , CardField, StripeProvider    } from '@stripe/stripe-react-native';
 import { useEffect, useState } from 'react';
 import {  Alert , View , Text , BackHandler} from 'react-native';
 import { useNavigation } from '@react-navigation/native'; 
 import LoadingButton from '../../Components/LoadingButton';
-import { ScaledSheet } from 'react-native-size-matters';
+import { ScaledSheet, verticalScale } from 'react-native-size-matters';
 import { fontSize } from '../../../constants/theme';
 
 
-function  CardPayment  ({ route}) {
+function  CardPayment  ({selectedAddress , amount }) {
 
     const user = useSelector( state => state.auth.user) 
-    const cartItems = useSelector( state => state.cartList.data) 
+    const cartItems = useSelector( state => state.cartList.data)
+
     const dispatch = useDispatch()
     const navigation = useNavigation()
-    const {amount} = route.params
 
     // const [cardDetails , setCardDetails] = useState(null)
 
@@ -26,7 +26,6 @@ function  CardPayment  ({ route}) {
     const [loading , setLoading] = useState(false);
     const [showBtn , setShowBtn] = useState(false);
 
-  const [selectedAddress, setSelectedAddress] = useState(   null );
 
 
   useEffect( () => {
@@ -64,26 +63,6 @@ function  CardPayment  ({ route}) {
 
 
 
-    useEffect(()=>{
-      // user.address.forEach(address=> {
-      //   if(address.currentAddress == true ) {
-      //     setSelectedAddress(address)
-      //   }
-      // })
-
-      setSelectedAddress(user.address[0])
-      console.log(user.address[0])
-  },[])
-
-
-
-
-
-
-
-
-
-
   const placeOrder = (paymentIntent) => {
 
     const orderDetails = {
@@ -99,7 +78,7 @@ function  CardPayment  ({ route}) {
 
     // console.log(data)
 
-    dispatch(orderItem(orderDetails));
+    dispatch(addOrder(orderDetails));
     dispatch(emptyCart([]));
     navigation.navigate('OrderSuccess' , {orderDetails});
   };
@@ -112,7 +91,7 @@ function  CardPayment  ({ route}) {
     const fetchPaymentIntentClientSecret = async  ( ) => {
     
         try{
-      const res = await  fetch('https://7601-2409-4081-9001-f889-a8a7-4eb8-c904-545e.ngrok-free.app/createPayment', {
+      const res = await  fetch('https://shopping-hub-backend.vercel.app/create-payment-intent', {
         method : 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -120,7 +99,7 @@ function  CardPayment  ({ route}) {
           },
           body: JSON.stringify({
             amount: amount ,
-            currency: 'INR',
+            currency: 'usd',
             gateway: 'card',
           }),} )
 
@@ -194,15 +173,15 @@ function  CardPayment  ({ route}) {
                 },
               });
 
-
                 if (error) {
                   console.log('PAYMENT ERROR : ' , error.message)
-                  Alert.alert(error?.localizedMessage || '' + amount);
-                } else if (paymentIntent) {
-                  console.log(paymentIntent)
-                  // Alert.alert(`Payment of INR ${amount}   is successful! `)
-                  console.log(` order id ${paymentIntent.id} at ${paymentIntent.created}`)
-                placeOrder(paymentIntent)
+                  Alert.alert(error?.localizedMessage);
+                } 
+                else if (paymentIntent) {
+                   console.log(paymentIntent)
+                   // Alert.alert(`Payment of INR ${amount}   is successful! `)
+                   console.log(` order id ${paymentIntent.id} at ${paymentIntent.created}`)
+                   placeOrder(paymentIntent)
                 }
             }
             catch(e){
@@ -243,7 +222,7 @@ function  CardPayment  ({ route}) {
            color = 'white'
            loading={ loading}
            showBtn={ showBtn}
-           marginTop={10}
+           marginTop={verticalScale(10)}
            fontSize = {fontSize.regular}
 />
           </View>
@@ -258,7 +237,8 @@ const styles = ScaledSheet.create({
 // flex : 1,
 // alignItems : 'center',
 padding:'10@ms',
-paddingTop:80
+paddingTop:20 ,
+height : '300@vs' 
   },
   title:{
 fontSize:fontSize.large,

@@ -15,23 +15,19 @@ import { ScaledSheet, scale, verticalScale } from 'react-native-size-matters';
 import CustomButton from '../Components/CustomButton';
 
 
-  const Addresses = () => {
+  const Addresses = ( {route}) => {
 
     const navigation = useNavigation();
 
     let addressList = useSelector(state => state.auth.user?.address);
- 
+    const type   = route?.params?.type ;
+
     const isFocused = useIsFocused();
     const dispatch = useDispatch();
 
     const [selectedAddress , setSelectedAddress] = useState( null )
 
-    useEffect(() => {
-      addressList?.forEach(item =>     item.currentAddress == true && setSelectedAddress(item)   )
-    }, [isFocused]);
-
     const defaultAddress = async item => {
-
       addressList  =  addressList.map( address => {
           const newAddress = { ...address, currentAddress: item.id == address.id ?  true : false }
           dispatch(updateAddress(newAddress))
@@ -103,12 +99,18 @@ import CustomButton from '../Components/CustomButton';
         </TouchableOpacity>
 
 
+{type == 'payment' && 
       <CustomButton
     title = 'Select Address'
-    onClick={()=>defaultAddress(selectedAddress)}
+    onClick={()=>{
+      navigation.navigate('PaymentOptions' , {selectedAddress })
+      }}
     width={'90%'}
-bg='orange'
+    bg='orange'
+    showBtn = {selectedAddress ? true : false}
       />
+}
+
 
       </>
       : 

@@ -50,10 +50,14 @@ const AuthSlice = createSlice({
         state.user = null
       },
 
+      setAddress(state, action) {
+        state.user.address = action.payload;
+      
+      }
+      ,
       addAddress(state, action) {
-
         state.user.address.push(action.payload);
-
+        
         userDocument.set({
           address:  state.user.address,
         }, { merge: true })
@@ -97,6 +101,6 @@ const AuthSlice = createSlice({
     }
   })
 
-export const {setUser , removeUser , updateUser ,addAddress , updateAddress , deleteAddress} = AuthSlice.actions;
+export const {setUser , removeUser , updateUser ,setAddress, addAddress , updateAddress , deleteAddress} = AuthSlice.actions;
 
 export default AuthSlice.reducer

@@ -12,6 +12,7 @@ const CartListSlice = createSlice({
     name: 'cartList',
     initialState: {
       data: [] ,
+      total_amount : 0 
     },
     reducers: {
       addItemToCartList : (state , action) => {
@@ -23,29 +24,35 @@ const CartListSlice = createSlice({
         if(item.id == action.payload.item.id  ){
           isExist =   true ;
           item.qty += 1 ;
+          state.total_amount += item.price
         }
       })
        if(!isExist){
-          state.data.push( action.payload.item)
+         state.data.push( action.payload.item)
+         state.total_amount += action.payload.item.price
         }
 
-        // db.collection('users').doc(user.uid).set({
-        //   cartList:  state.data,
-        // })
-        // .then(()=>console.log('updated'))
-        // .catch((error) => { console.error('Error updating profile and Firestore:', error); });
+        firestore().collection('users').doc(user.uid).set({
+          cartList:  state.data,
+        })
+        .then(()=>console.log('updated'))
+        .catch((error) => { console.error('Error updating profile and Firestore:', error); });
       },
 
 
       reduceItemFromCartList : (state , action) => {
         
         state.data.map( item => {
+
           if(item.id == action.payload.item.id  ){
               if(item.qty > 1){
                 item.qty -= 1 ;
+               state.total_amount -= item.price
               }
               else{
                 state.data.splice( item , 1);
+                state.total_amount -= action.payload.item.price
+
               } 
           }
         })
@@ -56,10 +63,13 @@ const CartListSlice = createSlice({
         let tempData = state.data;
         tempData.splice(action.payload, 1);
         state.data = tempData;
+        state.total_amount -= action.payload.price
+
       },
 
       emptyCart(state, action) {
         state.data = action.payload;
+        state.total_amount =0;
       },
 
     }

@@ -1,17 +1,12 @@
-import React, { useEffect, useState  } from 'react';
+import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet , Dimensions, ActivityIndicator } from 'react-native';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
-// import { fontSize } from '../../constants/theme';
 
-const LoadingButton = ({loading ,showBtn,  title , onClick  , bg , color , marginTop ,fontSize}) => {
+import {  fontSize } from '../../constants/theme'
 
-  // const [currenloading , setLoading] = useState(loading);
-  // const [currentShowBtn , setShowBtn] = useState(showBtn);
 
-  // useEffect(()=>{
-  //   setLoading(loading)
-  //   setShowBtn(showBtn)
-  // } , [loading , showBtn])
+
+const LoadingButton = ({loading ,showBtn,  title , onClick  , bg , color , marginTop }) => {
 
   return (
     <View style={[ styles.container , {marginTop  }]}>
@@ -23,7 +18,7 @@ const LoadingButton = ({loading ,showBtn,  title , onClick  , bg , color , margi
         {loading ? (
           <ActivityIndicator size={scale(30)}/>
         ) : (
-          <Text style = {[styles.title ,  !showBtn ?  {  color : '#000'  , fontSize : fontSize } :{  color }] }>{title}</Text>
+          <Text style = {[styles.title ,  !showBtn ?  {  color : '#000'  } :{  color }] }>{title}</Text>
         )}
       </TouchableOpacity>
     </View>
@@ -50,7 +45,8 @@ const styles = StyleSheet.create({
   },
   
   title:{
-    fontWeight: '500'
+    fontWeight: '500',
+    fontSize:fontSize.regular
   }
 });
 

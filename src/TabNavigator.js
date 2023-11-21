@@ -1,14 +1,82 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import CustomTabIcon from './Components/CustomTabIcon';
 import  ScreenNavigator  from './ScreenNavigator'
 import {StyleSheet} from 'react-native'
-import { fontSize } from '../constants/theme';
-import { verticalScale } from 'react-native-size-matters';
+import { Colors, fontSize } from '../constants/theme';
+import { verticalScale , scale } from 'react-native-size-matters';
+import Ionicons   from 'react-native-vector-icons/Ionicons';
+
+
+import auth from '@react-native-firebase/auth';
+import { useDispatch } from 'react-redux';
+import { setAddress, setUser } from './Redux/Slices/AuthSlice';
+import firestore from '@react-native-firebase/firestore';
+import { setOrder } from './Redux/Slices/OrderSlice';
+import { useNavigation } from '@react-navigation/native';
+
+
+const CustomTabIcon = ({ focused  , offIcon }) => {
+  return (
+    <Ionicons
+      name ={ offIcon}
+     size = {scale(30)}
+     color = {focused ? Colors.primary : '#000'}
+    />
+  );
+};
 
 
 
 function TabNavigator() {
+  
+  const dispatch = useDispatch();
+  const nav = useNavigation()
+
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
+
+async  function  onAuthStateChanged (user) {
+
+  // console.log('App user : ' ,  user) 
+
+  if(user && user.displayName){
+
+    // console.log('SETTED')
+
+    let address = []
+    let orders = []
+
+    dispatch( setUser( {
+      id : user.uid ,
+      name : user.displayName , 
+      email : user.email,
+      photo : user.photoURL ,
+      emailVerified :user.emailVerified ,
+      address : address,
+      phone : user.phoneNumber
+  }) )
+
+    await firestore().collection('users').doc(user.uid).get()
+    .then(querySnapshot =>  {
+      address =  querySnapshot.data()?.address ? querySnapshot.data().address : [];
+       orders =  querySnapshot.data()?.orders ? querySnapshot.data().orders : []
+    });
+
+    console.log(address)
+    console.log(orders)
+    
+    dispatch(setOrder(orders))
+    dispatch(setAddress(address))
+
+
+nav.navigate('HomeTab')
+    
+  }
+
+}
 
   const Tab = createBottomTabNavigator();
 

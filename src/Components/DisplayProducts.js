@@ -37,10 +37,9 @@ const dispatch = useDispatch();
               <View style = {styles.detailBox}>
 
                 <Text style={styles.name}>
-                  {/* {item.title.length 
-                    ? item.title.substring(0, 25) + '...'
-                    : item.title} */}
-                    {item.title}
+                  {item.title.length 
+                    ? item.title.substring(0, 50) + '...'
+                    : item.title}
                 </Text>
 
                 <Text style={styles.desc}>

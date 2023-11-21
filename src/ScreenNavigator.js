@@ -20,6 +20,7 @@ import AuthScreen from './Screens/AuthScreens/AuthScreen';
 
 import  Favourite from './Tabs/Favourite'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import PaymentOptions from './Screens/CheckoutScreens/PaymentOptions';
 
 
 export default  function ScreenNavigator({ route }){
@@ -120,6 +121,13 @@ export default  function ScreenNavigator({ route }){
      options={{   
             header: () => <Header title  ='Edit Profile'    leftIcon='arrow-back'  rightIcon='cart' />
 }}  /> 
+
+
+     <Stack.Screen 
+     name="PaymentOptions" 
+     component={PaymentOptions} 
+     options={{   header: () => null  }}
+          />
 
      <Stack.Screen 
      name="CardPayment" 

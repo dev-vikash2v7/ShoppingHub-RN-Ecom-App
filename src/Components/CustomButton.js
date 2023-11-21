@@ -8,14 +8,15 @@ import { fontSize } from '../../constants/theme';
 import { ScaledSheet } from 'react-native-size-matters';
   
 
-  const CustomButton = ({bg, title, onClick, color , width , fontSize }) => {
+  const CustomButton = ({bg, title, onClick, color , width , fontSize  , showBtn}) => {
     return (
       <Button
         title= {title}
-        style={[styles.btn, {backgroundColor: bg , width }]}
+        style={[styles.btn, { backgroundColor : showBtn==false ?  'gray' : bg , width }]}
         onPress={() => {
           onClick();
         }}
+        // disabled = {showBtn==true ? true :  false}
        >
        <Text style = {{ fontSize,fontWeight: '500',color : color }}>{title}</Text>
 
