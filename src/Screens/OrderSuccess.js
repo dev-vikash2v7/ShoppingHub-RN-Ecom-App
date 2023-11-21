@@ -26,7 +26,7 @@ const OrderSuccess = ({route}) => {
 
   return (
     <View style={styles.container}>
-      <Image source={icons.done} style={styles.icon} />
+      <Image source={icons.done} style={styles.icon} /> 
       <Text style={styles.msg}>Order Placed Successfully...</Text>
       <Text
         style={styles.btn}
