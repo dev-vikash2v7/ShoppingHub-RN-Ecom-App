@@ -22,7 +22,6 @@ import CustomButton from '../Components/CustomButton';
     let addressList = useSelector(state => state.auth.user?.address);
     const type   = route?.params?.type ;
 
-    const isFocused = useIsFocused();
     const dispatch = useDispatch();
 
     const [selectedAddress , setSelectedAddress] = useState( null )

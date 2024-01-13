@@ -1,6 +1,5 @@
 import  ProductDetail  from './Screens/ProductDetail';
 import CartList  from './Screens/CartList';
-import CheckoutScreen from './Screens/CheckoutScreens/CheckoutScreen';
 import  SignUpScreen from './Screens/AuthScreens/SignUpScreen';
 import LogInScreen  from './Screens/AuthScreens/LogInScreen';
 import Header from './Components/Header';
@@ -60,12 +59,12 @@ export default  function ScreenNavigator({ route }){
   }}
      />
      
-     <Stack.Screen 
+     {/* <Stack.Screen 
     name='Checkout' 
     component={CheckoutScreen} 
      options={{       header: () => <Header title  ='CheckOut'   leftIcon='arrow-back' />
   }}
-     />
+     /> */}
      
   
      <Stack.Screen 

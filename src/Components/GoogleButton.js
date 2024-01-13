@@ -43,6 +43,8 @@ function GoogleButton({type}) {
 
     await auth().signInWithCredential(googleCredential)
 
+    navigation.navigate('HomeTab')
+
 
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {

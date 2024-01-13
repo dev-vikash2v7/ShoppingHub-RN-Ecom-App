@@ -24,16 +24,16 @@ const PaymentOptions = ({route}) => {
   
   const user = useSelector( state => state.auth.user) 
   const total = useSelector(state => state.cartList.total_amount)
+
+
   const selectedAddress = route.params.selectedAddress
 
-
+  
   const navigation = useNavigation();
-
-
-
+  
   const [QRVisible, setQRVisible] = useState(   false );
   const [cardPayment, setCardPayment] = useState(   false );
-
+  
   const payee_address = 'vikash0955@axl'
   const payee_name = 'ShoppingHub'
   const merchant_category = '0000'
@@ -41,7 +41,7 @@ const PaymentOptions = ({route}) => {
   const transaction_ref = 'Order Payment from ShppingHub'
   const mode = '02'
   const upiLink = `upi://pay?pa=${payee_address}&pn=${payee_name}&mc=${merchant_category}&mode=${mode}&cu=${currency}&am=${total}&tn=${transaction_ref}`
-
+  
   useEffect(() => {
     navigation.getParent()?.setOptions({ tabBarStyle : {display : 'none'} ,  tabBarVisible: false });
     

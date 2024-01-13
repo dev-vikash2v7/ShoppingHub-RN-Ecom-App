@@ -1,9 +1,9 @@
 import {View, Text, Image} from 'react-native';
 import React,{useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import icons from '../../constants/icons';
 import { fontSize } from '../../constants/theme';
 import { ScaledSheet } from 'react-native-size-matters';
+import { appIcons } from '../../constants/icons';
 
 const OrderSuccess = ({route}) => {
   const navigation = useNavigation();
@@ -26,7 +26,7 @@ const OrderSuccess = ({route}) => {
 
   return (
     <View style={styles.container}>
-      <Image source={icons.done} style={styles.icon} /> 
+      <Image source={appIcons.done} style={styles.icon} /> 
       <Text style={styles.msg}>Order Placed Successfully...</Text>
       <Text
         style={styles.btn}

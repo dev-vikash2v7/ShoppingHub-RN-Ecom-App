@@ -37,7 +37,7 @@ export default function Header({title   , leftIcon , rightIcon}) {
          ( <TouchableOpacity onPress = {()=>nav.navigate('Cart')} style={styles.rightbtn}> 
 
           <View style={ styles.cartBadge} >
-            <Text style={styles.count}> {cartList.length}  </Text>
+            <Text style={styles.count}> {cartList? cartList.length : 0}  </Text>
           </View>
 
             <Ionicons name={rightIcon} size={scale(30)} color = 'white'/>

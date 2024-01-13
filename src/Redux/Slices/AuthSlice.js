@@ -4,8 +4,6 @@ import { createSlice  } from '@reduxjs/toolkit';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
-
-
 const user = auth().currentUser;
 
 const userDocument = firestore().collection('users').doc(user.uid);
@@ -37,7 +35,9 @@ const AuthSlice = createSlice({
     //     password : '123'
     // }
 
-    user : null
+    user : {
+      address : []
+    }
     },
 
     reducers: {

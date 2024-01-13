@@ -28,38 +28,6 @@ function  CardPayment  ({selectedAddress , amount }) {
 
 
 
-  useEffect( () => {
-    navigation.getParent()?.setOptions({ tabBarStyle: { display: 'none' }, tabBarVisible: false });
-
-    const backAction = () => {
-      // Navigate to the Home screen when the back button is pressed
-      Alert.alert('Hold on!', 'Are you sure ? Your Order will Cancel', [
-        {
-          text: 'Cancel',
-          onPress: () => null,
-          style: 'cancel',
-        },
-        {text: 'YES', onPress: () =>   navigation.navigate('Cart')},
-      ]);
-    
-      return true; // Prevent default back button behavior
-    };
-    
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
-
-    return () =>
-        {
-          backHandler.remove();
-          navigation.getParent()?.setOptions({ 
-            tabBarStyle:  { 
-              height : 80,
-              alignItems:'center',
-          }, 
-          tabBarVisible: true 
-        });
-        }
-}, [navigation] );
-
 
 
 

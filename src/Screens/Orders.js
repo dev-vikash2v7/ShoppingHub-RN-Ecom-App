@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet, FlatList, Image, TouchableOpacity} from 'react-native';
+import {View, Text, FlatList, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {useSelector} from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
@@ -7,10 +7,16 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { fontSize } from '../../constants/theme';
 import { ScaledSheet } from 'react-native-size-matters';
 
+
+
 const Orders = () => {
 
   const ordersList = useSelector(state => state.order.data);
   const navigattion  = useNavigation()
+
+
+  
+
 
   const RenderProduct = ({item , order})=>{
     return (

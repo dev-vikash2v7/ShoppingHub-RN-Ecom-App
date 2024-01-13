@@ -9,9 +9,8 @@ import Ionicons   from 'react-native-vector-icons/Ionicons';
 
 import auth from '@react-native-firebase/auth';
 import { useDispatch } from 'react-redux';
-import { setAddress, setUser } from './Redux/Slices/AuthSlice';
-import firestore from '@react-native-firebase/firestore';
-import { setOrder } from './Redux/Slices/OrderSlice';
+import {  setUser } from './Redux/Slices/AuthSlice';
+
 import { useNavigation } from '@react-navigation/native';
 
 
@@ -43,37 +42,18 @@ async  function  onAuthStateChanged (user) {
   // console.log('App user : ' ,  user) 
 
   if(user && user.displayName){
-
-    // console.log('SETTED')
-
-    let address = []
-    let orders = []
-
+    
     dispatch( setUser( {
       id : user.uid ,
       name : user.displayName , 
       email : user.email,
       photo : user.photoURL ,
       emailVerified :user.emailVerified ,
-      address : address,
+      address : [],
       phone : user.phoneNumber
   }) )
 
-    await firestore().collection('users').doc(user.uid).get()
-    .then(querySnapshot =>  {
-      address =  querySnapshot.data()?.address ? querySnapshot.data().address : [];
-       orders =  querySnapshot.data()?.orders ? querySnapshot.data().orders : []
-    });
 
-    console.log(address)
-    console.log(orders)
-    
-    dispatch(setOrder(orders))
-    dispatch(setAddress(address))
-
-
-nav.navigate('HomeTab')
-    
   }
 
 }

@@ -1,6 +1,6 @@
 import { View, Text  , FlatList   , Image  , Pressable , TouchableOpacity, Dimensions} from 'react-native'
 import React from 'react'
-import { addItemToCartList , reduceItemFromCartList } from '../Redux/Slices/CartListSlice';
+import { addItemToCartList , increaseItemToCartList, reduceItemFromCartList } from '../Redux/Slices/CartListSlice';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import FontAwesome from 'react-native-vector-icons/FontAwesome' 
@@ -16,16 +16,15 @@ const dispatch = useDispatch();
 
 
   return ( 
-    <View style ={{marginBottom:verticalScale(70)}}>
-    <FlatList
+    <View style ={{marginBottom:verticalScale(20)}}>
 
-        data={products}
-        renderItem={({item, index}) => {
+    {products?.map((item) => {
           return (  
-            <View >
+            <View 
+              key = {item.name  }
+            >
 
             <Pressable
-              key = {index}
               onPress={()=>nav.navigate('ProductDetail' , {data:item})}
               style={styles.productItem}  
               > 
@@ -51,11 +50,11 @@ const dispatch = useDispatch();
 
                  <View style={styles.priceBox}>  
 
-               { isCart && <Text style = {[  { color : '#000' , fontWeight : '500' , marginLeft:scale(-5) , fontSize:fontSize.regular} ] }>   Total :  </Text>}
+               <Text style = {[  { color : '#000' , fontWeight : '500' , marginLeft:scale(-5) , fontSize:fontSize.regular} ] }>   Price :  </Text>
 
                 <View style={styles.priceView}> 
                  <FontAwesome name = 'rupee' size = {14} color ='green' />
-                <Text style={styles.price}>{item.price * item.qty} </Text>
+                <Text style={styles.price}>{item.price } </Text>
 
                  </View>
               </View>
@@ -68,7 +67,7 @@ const dispatch = useDispatch();
 {isCart && 
 <View style={styles.cartView} >
          
-         <TouchableOpacity style={styles.cartBtn} onPress={()=> dispatch(addItemToCartList({item})  )  }>
+         <TouchableOpacity style={styles.cartBtn} onPress={()=> dispatch(increaseItemToCartList({item})  )  }>
            <Text style = {{fontSize : fontSize.regular , fontWeight : '600' , color : 'green' }} > + </Text>
          </TouchableOpacity>
   
@@ -81,14 +80,12 @@ const dispatch = useDispatch();
        </View>
         }
             </View>
-          );
-        }}
-      />
 
+          )})}
   </View>
-  )
+  )}
 
-}
+
 
 export default DisplayProducts;
 

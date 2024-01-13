@@ -13,8 +13,6 @@ export default function AppNavigator() {
     <NavigationContainer >
       <Drawer.Navigator>
         <Drawer.Screen name="Home Page" component={TabNavigator} options={{headerShown:false}}/>
-
-        {/* <Drawer.Screen name="Details" component={ TabNavigator}  options={{headerShown:false}}/> */}
       </Drawer.Navigator>
 
 

@@ -1,5 +1,5 @@
 import { View, Text } from 'react-native'
-import React from 'react'
+import React,{useState , useEffect} from 'react'
 import FontAwesome from 'react-native-vector-icons/FontAwesome' 
 import { useNavigation } from '@react-navigation/native'
 import { ScaledSheet, scale } from 'react-native-size-matters'
@@ -7,9 +7,11 @@ import { Colors, fontSize } from '../../constants/theme'
 import CustomButton from './CustomButton'
 import { useSelector } from 'react-redux'
 
-const CheckoutLayer = ({  no_items}) => {
+const CheckoutLayer = () => {
   const nav = useNavigation()
-  const amount = useSelector(state => state.cartList.total_amount)
+  const cartList = useSelector(state => state.cartList.data);
+  const total = useSelector(state => state.cartList.total_amount);
+
 
   return (
     <View style={styles.container} >
@@ -20,13 +22,13 @@ const CheckoutLayer = ({  no_items}) => {
    <Text style = { styles.label}>   Total Amount :  </Text>
   <View style={styles.priceView}> 
     <FontAwesome name = 'rupee' size = {scale(14)} />
-  <Text style={styles.value}>{amount }    </Text>
+  <Text style={styles.value}>{total }    </Text>
     </View>
 </View>
 
 <View style={styles.priceBox}>  
    <Text style = {styles.label }>   Total Items :  </Text>
-  <Text style={styles.value}>{no_items}    </Text>
+  <Text style={styles.value}>{cartList.length }    </Text>
 </View>
 
 
@@ -54,10 +56,9 @@ const styles = ScaledSheet.create({
   container:{
     alignItems: 'center',
     paddingHorizontal : '20@s',
-    width:'100%',
     justifyContent:'space-between',
     flexDirection:'row',
-    backgroundColor:'#fdsfds'
+    marginBottom:'30@vs'
     
 },
 value:{

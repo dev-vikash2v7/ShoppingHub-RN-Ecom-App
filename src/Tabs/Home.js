@@ -4,8 +4,19 @@ import {useDispatch} from 'react-redux'
 import { addProducts } from '../Redux/Slices/ProductSlice';
 import DisplayProducts from '../Components/DisplayProducts';
 import SearchBar from '../Components/SearchBar';
-import { scale, verticalScale } from 'react-native-size-matters';
+import { ScaledSheet, scale, verticalScale } from 'react-native-size-matters';
 import { Colors, fontSize } from '../../constants/theme';
+import { setAddress } from '../Redux/Slices/AuthSlice';
+import { setOrder } from '../Redux/Slices/OrderSlice';
+
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+import { emptyCart, setCartList } from '../Redux/Slices/CartListSlice';
+import { ScrollView } from 'react-native-gesture-handler';
+
+
+
+const user = auth().currentUser;
 
 const Home = () => {
   const [products, setProducts] = useState();
@@ -14,7 +25,6 @@ const Home = () => {
 
   const handleSearch = (searchText) => {
 
-    
     if(searchText == ''){
       setSearchList(products);
     }
@@ -27,29 +37,51 @@ const Home = () => {
     }
   };
 
-  
- useEffect(() => {
-  try{
-    fetch('https://fakestoreapi.com/products')
-      .then(res => res.json())
-      .then(data => {
-        data.map(item => {
-          item.qty = 1;
-          item.isLike = false ;
-          item.price = parseInt(item.price) * 10
-        });
-        setProducts(data);
-        dispatch(  addProducts(  data ) );
-        });
-      }
-      catch(e){
+   
+ useEffect( () => {
+
+// dispatch(emptyCart())  
+   try{
+   fetch('https://fakestoreapi.com/products')
+   .then(res => res.json())
+   .then(data => {
+     data.map(item => {
+       item.qty = 1;
+       item.isLike = false ;
+       item.price = parseInt(item.price) * 10
+     });
+     setProducts(data);
+     dispatch(  addProducts(  data ) );
+     });
+     }
+    catch(e){
         Alert.alert('Network connection failed')
+        // fetchData()
       }
   }, [products]);
 
+
+  useEffect(()=>{
+
+    if(user){
+    firestore().collection('users').doc(user.uid).get()
+    .then(querySnapshot =>  {
+      
+       dispatch(setOrder(querySnapshot.data()?.orders ? querySnapshot.data().orders : []))
+       dispatch(setAddress(querySnapshot.data()?.address ? querySnapshot.data().address : [])) 
+       dispatch(setCartList(querySnapshot.data()?.cartList ? querySnapshot.data().cartList : [])) 
+
+      //  console.log('Address & Order fixed')
+    })
+    .catch((e)=>{
+      console.error('Error : ' , e)
+    })
+  }
+  },[])
+
   return (
     products ? 
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
 
 <SearchBar onSearch={handleSearch} title = "Search products ..."/>
 
@@ -60,7 +92,7 @@ const Home = () => {
 :
   <DisplayProducts products = {searchList}  />
 }
-    </View>
+    </ScrollView>
   :
 <View style={{marginTop:verticalScale(10)}}>
   <ActivityIndicator  size={scale(30)}/>
@@ -68,10 +100,9 @@ const Home = () => {
   )
 }
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   container : {
-    flex:1,
-    alignItems:'center',
+    backgroundColor : Colors.bg
   },
     
 })

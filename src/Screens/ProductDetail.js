@@ -1,4 +1,4 @@
-import { View, Text     , TouchableOpacity , Image  ,  ScrollView} from 'react-native'
+import { View, Text     , TouchableOpacity , Image  ,  ScrollView, Alert} from 'react-native'
 import React,{useEffect, useState } from 'react'
 import {useNavigation  } from '@react-navigation/native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome' 
@@ -17,28 +17,30 @@ const ProductDetail = ({route}) => {
 
 const user = useSelector( state => state.auth.user)
 const wishList = useSelector( state => state.wishList.items)
+const cartList = useSelector( state => state.cartList.data)
 
 const dispatch = useDispatch();
 const navigation = useNavigation()
 const item = route.params.data 
 
-const [isLike , setIsLike] = useState(item.isLike);
+const [isLike , setIsLike] = useState(false);
+const [isAdded , setIsAdded] = useState(false);
+
 const [qty , setQty] = useState(  item.qty );
 
 const [modelVisible , setModelVisible] = useState(  false );
 
-
 useEffect(()=>{
-    wishList.forEach(wishList_item=> {
-      if(wishList_item.id == item.id ) 
-        setIsLike(true)
-      })
+ wishList && setIsLike(wishList.find(data => data.id === item.id  ))
+cartList && setIsAdded(cartList.find(data => data.id === item.id  ));
 } , [])
 
 
 const handleAddToCart = () =>{
   if(user){
     dispatch(addItemToCartList(  { item : {...item , qty}} ) )
+    setIsAdded(true)
+    Alert.alert('Product added to your Cart')
   }
   else{
     setModelVisible(true);
@@ -115,9 +117,9 @@ const handleLike = ()=>{
 <View style={{display:'flex' , flexDirection:'row' , justifyContent:'space-between' }}>
       <CustomButton
           bg={'#FF9A0C'}
-          title={'Add To Cart'}
+          title={isAdded ? 'Go To Cart' : 'Add To Cart'}
           color={'#fff'}
-          onClick={handleAddToCart}
+          onClick={() => isAdded ? navigation.navigate('Cart') : handleAddToCart()}
           width={'45%'}
           fontSize = {scale(12)}
           />

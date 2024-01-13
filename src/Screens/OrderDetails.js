@@ -13,30 +13,7 @@ const OrderDetails = ({route }) => {
   const address = `${billingDetails.address.city} , ${billingDetails.address.state}\n${billingDetails.address.pincode}\n${billingDetails.address.type}`
   const {name , email , phone} = billingDetails
 
-  // const orderDetails = {
-  //   orderId: '123456',
-  //   amount: '$250.00',
-  //   shippingAddress: '1234 Main St, City, Country',
-  //   paymentDetails: 'Credit card ending in 1234',
-  //   productItems: [
-  //     { id: 1, name: 'Product 1', price: '$50.00' },
-  //     { id: 2, name: 'Product 2', price: '$70.00' },
-  //     // Add more product items as needed
-  //   ],
-  //   paymentStatus: 'Paid',
-  // };
-
-  const RenderProduct = ({item}) =>{
-    return(
-    <View key={item.id}>
-            <Text>{item.name}</Text>
-            <Text>{item.desc}</Text>
-            <Text>Price: {item.price}</Text>
-            <Text>Quantity: {item.qty}</Text>
-            {/* Add images, product descriptions, etc. */}
-            </View>
-    )}
-
+ 
   return (
     <Container  isScrollable={true}>
 
