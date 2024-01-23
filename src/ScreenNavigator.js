@@ -21,7 +21,6 @@ import  Favourite from './Tabs/Favourite'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import PaymentOptions from './Screens/CheckoutScreens/PaymentOptions';
 
-
 export default  function ScreenNavigator({ route }){
      const Stack = createNativeStackNavigator()
 
@@ -59,12 +58,6 @@ export default  function ScreenNavigator({ route }){
   }}
      />
      
-     {/* <Stack.Screen 
-    name='Checkout' 
-    component={CheckoutScreen} 
-     options={{       header: () => <Header title  ='CheckOut'   leftIcon='arrow-back' />
-  }}
-     /> */}
      
   
      <Stack.Screen 

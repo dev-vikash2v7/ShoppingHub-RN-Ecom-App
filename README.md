@@ -30,7 +30,8 @@ ShoppingHub is a feature-rich React Native ecommerce application that provides a
 - **Wishlist:** Users can create and manage wishlists for future purchases.
 - **Admin Panel:** Administrators have access to a dedicated panel for managing products, orders, and user data.
 
-## Setup
+
+# Setup
 
 ### Prerequisites
 

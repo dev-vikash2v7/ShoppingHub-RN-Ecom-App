@@ -1,16 +1,14 @@
 import {
     Text,
-    StyleSheet,
-    Dimensions,
     TouchableOpacity,
     Modal,
     View,
   } from 'react-native';
-  import React, { useEffect, useState } from 'react';
+  import React from 'react';
   import Entypo from 'react-native-vector-icons/Entypo'
   import { useNavigation } from '@react-navigation/native';
 import { fontSize, height, width } from '../../../constants/theme';
-import { ScaledSheet } from 'react-native-size-matters';
+import { ScaledSheet, scale, verticalScale } from 'react-native-size-matters';
   
   const AuthScreen = () => {
   
@@ -80,8 +78,8 @@ const styles = ScaledSheet.create({
 
      crossBtn:{
        position : 'absolute' ,
-       top : height - 380 ,
-       left : width - 40
+       top : verticalScale(260) ,
+       right : scale(35)
      },
 
 });

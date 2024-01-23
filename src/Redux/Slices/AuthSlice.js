@@ -5,39 +5,14 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
 const user = auth().currentUser;
+const userDocument = user ? firestore().collection('users').doc(user.uid) : null;
 
-const userDocument = firestore().collection('users').doc(user.uid);
 
 const AuthSlice = createSlice({
     name: 'auth',
 
     initialState: {
-    //   user : {
-    //     name :'vikash',
-    //     email:'vk@gmail.com',
-    //     phone : '887956935',
-    //     address:[{
-    //       id:1,
-    //       state : 'MP',
-    //       city : 'Bhopal',
-    //       type : 'home',
-    //       pincode : 450114 ,
-    //       currentAddress : true 
-    //     },{
-    //       id:2,
-    //       state : 'Bihar',
-    //       city : 'Patna',
-    //       type : 'office',
-    //       pincode : 23422 ,
-    //       currentAddress : false 
-    //     },
-    //   ],
-    //     password : '123'
-    // }
-
-    user : {
-      address : []
-    }
+       user : null
     },
 
     reducers: {
@@ -58,7 +33,7 @@ const AuthSlice = createSlice({
       addAddress(state, action) {
         state.user.address.push(action.payload);
         
-        userDocument.set({
+        userDocument?.set({
           address:  state.user.address,
         }, { merge: true })
         .then(()=>console.log('added'))
@@ -81,17 +56,13 @@ const AuthSlice = createSlice({
 
         temp.map(item => {
           if (item.id == action.payload.id) {
-            // item.state = action.payload.state;
-            // item.city = action.payload.city;
-            // item.pincode = action.payload.pincode;
-            // item.type = action.payload.type;
             item = action.payload
           }
         });
 
         state.user.address = temp;
 
-        userDocument.update({
+        userDocument?.update({
           address: state.user.address,
         })
         .then(()=>console.log('updated'))

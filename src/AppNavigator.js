@@ -1,5 +1,5 @@
 import React,{useEffect} from 'react'
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import TabNavigator  from './TabNavigator';
 

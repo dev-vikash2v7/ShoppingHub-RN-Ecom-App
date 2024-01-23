@@ -11,7 +11,6 @@ import auth from '@react-native-firebase/auth';
 import { useDispatch } from 'react-redux';
 import {  setUser } from './Redux/Slices/AuthSlice';
 
-import { useNavigation } from '@react-navigation/native';
 
 
 const CustomTabIcon = ({ focused  , offIcon }) => {
@@ -29,15 +28,9 @@ const CustomTabIcon = ({ focused  , offIcon }) => {
 function TabNavigator() {
   
   const dispatch = useDispatch();
-  const nav = useNavigation()
 
-
-  useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber; // unsubscribe on unmount
-  }, []);
-
-async  function  onAuthStateChanged (user) {
+  
+  async  function  onAuthStateChanged (user) {
 
   // console.log('App user : ' ,  user) 
 
@@ -51,12 +44,15 @@ async  function  onAuthStateChanged (user) {
       emailVerified :user.emailVerified ,
       address : [],
       phone : user.phoneNumber
-  }) )
-
-
-  }
+  }) )}
 
 }
+
+
+useEffect(() => {
+  const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+  return subscriber; // unsubscribe on unmount
+}, []);
 
   const Tab = createBottomTabNavigator();
 

@@ -11,7 +11,7 @@ import { setOrder } from '../Redux/Slices/OrderSlice';
 
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import { emptyCart, setCartList } from '../Redux/Slices/CartListSlice';
+import {  setCartList } from '../Redux/Slices/CartListSlice';
 import { ScrollView } from 'react-native-gesture-handler';
 
 
@@ -19,6 +19,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 const user = auth().currentUser;
 
 const Home = () => {
+
   const [products, setProducts] = useState();
   const dispatch = useDispatch();
   const[searchList , setSearchList] =  useState(null)
@@ -77,6 +78,7 @@ const Home = () => {
       console.error('Error : ' , e)
     })
   }
+
   },[])
 
   return (
